@@ -19,15 +19,18 @@ async def on_message(message):
     #fetch google results and update keyword into mysql db
     if message.content.startswith('!google'):
         query = message.content.split(None, 1)[1]
-        author_id = message.author.id
-        save_search_keyword(author_id, query)
+        user_id = message.author.id
 
-        results = search_from_google(query)
-        if results:
-            links = ' \n'.join(results)
-            msg = 'Hello {}, you searched for {}. The top five results are: \n {}'.format(message.author.mention, query, links)
+        #save search keyword to db
+        save_search_keyword(user_id, query)
+
+        #to search from google
+        google_result = search_from_google(query)
+        if google_result:
+            links = ' \n'.join(google_result)
+            msg = 'Hello, you searched for {}. The top five results are: \n {}'.format(query, links)
         else:
-            msg = 'Hello {}, you searched for {}. \n Sorry, no matching links found.'.format(message.author.mention, query)
+            msg = 'Hello, you searched for {}. \n Sorry, no matching links found.'.format(query)
 
         await message.channel.send(msg)
 
@@ -35,13 +38,14 @@ async def on_message(message):
     if message.content.startswith('!recent'):
         query = message.content.split(None, 1)[1]
         author_id = message.author.id
+
+        #get related searched keyword history
         results = get_recent_search_data(author_id, query)
-        # print(results)
-        if (len(results) > 0):
-            keywords = 'Your matching search results are: \n' + \
-                       ' \n'.join([x[1] for x in results])
+        if len(results) > 0:
+            keywords = 'Your matching search results are: \n' + ' \n'.join([x[1] for x in results])
         else:
             keywords = 'No matching results found'
+
         await message.channel.send(keywords)
 
 token = settings.BOT_TOKEN
