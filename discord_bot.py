@@ -1,7 +1,8 @@
 import discord
+
 import settings
-from google_search import search_from_google
 from bot_db import get_recent_search_data, save_search_keyword
+from google_search import search_from_google
 
 client = discord.Client()
 
@@ -10,9 +11,12 @@ async def on_message(message):
     message.content.lower()
     if message.author == client.user:
         return
+
+    #reply hey to hi message
     if message.content.startswith('hi'):
         await message.channel.send('Hey')
 
+    #fetch google results and update keyword into mysql db
     if message.content.startswith('!google'):
         query = message.content.split(None, 1)[1]
         author_id = message.author.id
@@ -27,6 +31,7 @@ async def on_message(message):
 
         await message.channel.send(msg)
 
+    #return searhced keywords data based on a match keyword
     if message.content.startswith('!recent'):
         query = message.content.split(None, 1)[1]
         author_id = message.author.id

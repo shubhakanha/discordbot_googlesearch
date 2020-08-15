@@ -1,8 +1,11 @@
-import pymysql
 import datetime
+
+import pymysql
+
 import settings
 
 
+#create mysql connection
 def create_mysql_connection():
     config = {
         'host': settings.DB_HOST,
@@ -14,6 +17,7 @@ def create_mysql_connection():
     return connection
 
 
+# save recently search keyword for the specific user
 def save_search_keyword(userid, keyword):
     connection = create_mysql_connection()
     cursor = connection.cursor()
@@ -24,7 +28,7 @@ def save_search_keyword(userid, keyword):
     connection.close()
 
 
-
+#fetch all searched keyword based on a keyword regex match
 def get_recent_search_data(userid, keyword):
     connection = create_mysql_connection()
     cursor = connection.cursor()
