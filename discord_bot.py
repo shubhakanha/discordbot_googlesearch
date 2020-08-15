@@ -1,4 +1,5 @@
 import discord
+import settings
 from google_search import search_from_google
 from bot_db import get_recent_search_data, save_search_keyword
 
@@ -38,6 +39,6 @@ async def on_message(message):
             keywords = 'No matching results found'
         await message.channel.send(keywords)
 
-token = ''
+token = settings.BOT_TOKEN
 
 client.run(token)

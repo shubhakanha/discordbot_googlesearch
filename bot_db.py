@@ -1,13 +1,14 @@
 import pymysql
 import datetime
+import settings
 
 
 def create_mysql_connection():
     config = {
-        'host': 'localhost',
-        'user': 'root',
-        'password': 'shubhamraj8006',
-        'db': 'botsearch'
+        'host': settings.DB_HOST,
+        'user': settings.DB_USER,
+        'password': settings.DB_PASSWORD,
+        'db': settings.DB_NAME
     }
     connection = pymysql.connect(**config)
     return connection
