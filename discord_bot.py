@@ -8,7 +8,7 @@ client = discord.Client()
 
 @client.event
 async def on_message(message):
-    message.content.lower()
+    message.content = message.content.lower()
     if message.author == client.user:
         return
 
