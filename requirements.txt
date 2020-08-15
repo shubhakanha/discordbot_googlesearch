@@ -1,0 +1,4 @@
+pymysql == 0.10.0
+discord.py == 1.4.1
+beautifulsoup4 == 4.9.1
+google == 3.0.0

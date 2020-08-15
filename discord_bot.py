@@ -40,5 +40,4 @@ async def on_message(message):
         await message.channel.send(keywords)
 
 token = settings.BOT_TOKEN
-
 client.run(token)
