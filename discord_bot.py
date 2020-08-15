@@ -38,6 +38,6 @@ async def on_message(message):
             keywords = 'No matching results found'
         await message.channel.send(keywords)
 
-token = 'NzQyNzkwNjkxMDk2MzYzMDU4.XzLPvQ.t-enm0bDrobQ1ihlGCY6jCannbg'
+token = ''
 
 client.run(token)
