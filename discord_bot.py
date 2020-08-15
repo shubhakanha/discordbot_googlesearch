@@ -1,5 +1,6 @@
 import discord
 from google_search import search_from_google
+from bot_db import get_recent_search_data
 
 client = discord.Client()
 
@@ -25,6 +26,18 @@ async def on_message(message):
 
         await message.channel.send(msg)
 
-token = ''
+    if message.content.startswith('!recent'):
+        query = message.content.split(None, 1)[1]
+        author_id = message.author.id
+        results = get_recent_search_data(author_id, query)
+        # print(results)
+        if (len(results) > 0):
+            keywords = 'Your matching search results are: \n' + \
+                       ' \n'.join([x[1] for x in results])
+        else:
+            keywords = 'No matching results found'
+        await message.channel.send(keywords)
+
+token = 'NzQyNzkwNjkxMDk2MzYzMDU4.XzLPvQ.t-enm0bDrobQ1ihlGCY6jCannbg'
 
 client.run(token)
