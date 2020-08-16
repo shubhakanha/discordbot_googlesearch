@@ -39,7 +39,7 @@ async def on_message(message):
         query = message.content.split(None, 1)[1]
         author_id = message.author.id
 
-        #get related searched keyword history
+        #to get related searched keyword history
         results = get_recent_search_data(author_id, query)
         if len(results) > 0:
             keywords = 'Your matching search results are: \n' + ' \n'.join([x[1] for x in results])
